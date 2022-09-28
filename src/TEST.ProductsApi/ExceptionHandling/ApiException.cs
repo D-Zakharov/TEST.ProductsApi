@@ -12,4 +12,9 @@ public class ApiException : Exception
     {
         (ExceptionCode, ErrorMessage, StatusCode) = (exceptionCode, error, statusCode);
     }
+
+    public static ApiException ItemNotFoundException(object itemId)
+    {
+        return new ApiException(string.Format(ExceptionMessages.ItemNotFound, itemId), ExceptionCodes.ItemNotFound);
+    }
 }

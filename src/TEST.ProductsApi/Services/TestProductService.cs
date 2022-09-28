@@ -27,7 +27,7 @@ namespace TEST.ProductsApi.Services
         {
             var item = _dbCtx.Products.Find(productID);
             if (item is null)
-                throw new ApiException(string.Format(ExceptionMessages.ItemNotFound, productID), ExceptionCodes.ItemNotFound);
+                throw ApiException.ItemNotFoundException(productID);
 
             _dbCtx.Products.Remove(item);
             _dbCtx.SaveChanges();
@@ -41,7 +41,7 @@ namespace TEST.ProductsApi.Services
         public void UpdateProduct(Product product)
         {
             if (_dbCtx.Products.Any(i => i.ID == product.ID) == false)
-                throw new ApiException(string.Format(ExceptionMessages.ItemNotFound, product.ID), ExceptionCodes.ItemNotFound);
+                throw ApiException.ItemNotFoundException(product.ID);
 
             _dbCtx.Products.Update(product);
             _dbCtx.SaveChanges();
